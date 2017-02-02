@@ -5,13 +5,6 @@ require 'minitest/autorun'
 
 require 'active_record'
 
-require 'pg'
-
-conn = PG.connect :host => 'localhost', :user => 'postgres'
-conn.exec "SET client_min_messages TO ERROR"
-conn.exec "DROP DATABASE IF EXISTS collate_test"
-conn.exec "CREATE DATABASE collate_test"
-
 ActiveRecord::Base.establish_connection(adapter: 'postgresql',
   encoding: 'unicode', database: 'collate_test', username: 'postgres')
 
