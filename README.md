@@ -1,6 +1,6 @@
 # Collate
 
-This is a placeholder description.
+Tests: [![CircleCI](https://circleci.com/gh/trackingboard/collate.svg?style=svg)](https://circleci.com/gh/trackingboard/collate)
 
 
 ## Contributing
