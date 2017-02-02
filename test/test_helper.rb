@@ -1,10 +1,10 @@
+require 'simplecov'
+SimpleCov.start 'rails'
+
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 ENV['RAILS_ENV'] ||= 'test'
 require 'collate'
 require File.expand_path('../../config/environment', __FILE__)
-
-require 'simplecov'
-SimpleCov.start 'rails'
 
 require 'rails/test_help'
 require 'minitest/pride'
