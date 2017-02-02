@@ -10,3 +10,5 @@ ActiveRecord::Base.establish_connection(adapter: 'postgresql',
 
 load File.dirname(__FILE__) + '/schema.rb'
 require File.dirname(__FILE__) + '/models.rb'
+
+load File.dirname(__FILE__) + '/seeds.rb'
