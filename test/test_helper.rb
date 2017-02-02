@@ -5,8 +5,11 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 
-require 'simplecov-shield'
-SimpleCov.formatter = SimpleCov::Formatter::ShieldFormatter
+require 'shield'
+SimpleCov.formatters = [
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::ShieldFormatter
+]
 
 SimpleCov.start 'rails'
 
