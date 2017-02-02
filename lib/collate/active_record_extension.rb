@@ -90,7 +90,6 @@ module Collate
 
       field_query = filter.field
 
-      puts filter.field_transformations.inspect
       filter.field_transformations.each do |ft|
         transformation = ft
         transformation = ft[0] if !transformation.is_a? Symbol
@@ -137,9 +136,6 @@ module Collate
           filter_value
         end
       end
-      puts '###############################################'
-      puts field_query
-      puts filter_value
 
       ar_method = filter.having ? "having" : "where"
 
@@ -167,8 +163,6 @@ module Collate
       end
 
       query_string = "NOT(#{query_string})" if filter.not
-
-      puts query_string
 
       ar_rel = if query_string.include?('?')
         ar_rel.send(ar_method, query_string, filter_value)
