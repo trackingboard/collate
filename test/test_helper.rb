@@ -11,7 +11,13 @@ SimpleCov.formatters = [
   Coveralls::SimpleCov::Formatter
 ]
 
-SimpleCov.start 'rails'
+SimpleCov.start do
+  add_filter 'test/'
+  add_filter 'app/'
+  add_filter 'config/'
+  add_filter 'lib/collate.rb'
+  add_filter 'lib/collate/engine.rb'
+end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 ENV['RAILS_ENV'] ||= 'test'
