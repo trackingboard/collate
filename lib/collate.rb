@@ -1,5 +1,6 @@
 require "collate/version"
+require "collate/engine"
 
 module Collate
-  # Your code goes here...
+
 end
