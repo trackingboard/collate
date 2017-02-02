@@ -5,6 +5,9 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 
+require 'simplecov-shield'
+SimpleCov.formatter = SimpleCov::Formatter::ShieldFormatter
+
 SimpleCov.start 'rails'
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
