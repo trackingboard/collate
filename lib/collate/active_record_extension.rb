@@ -44,6 +44,7 @@ module Collate
       end
       self.collate_filters ||= {}
       self.default_group ||= :main
+      self.group_options ||= {}
     end
 
     def apply_filter ar_rel, filter, filter_value

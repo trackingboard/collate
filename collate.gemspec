@@ -35,4 +35,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rails", "~> 4.2", ">= 4.2.6"
   spec.add_development_dependency "pg", '~> 0.18.4'
   spec.add_development_dependency "minitest", "~> 5.0"
+  spec.add_development_dependency 'pry-rescue'
 end

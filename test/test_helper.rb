@@ -1,14 +1,18 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
+ENV['RAILS_ENV'] ||= 'test'
 require 'collate'
+require File.expand_path('../../config/environment', __FILE__)
+
+require 'rails/test_help'
+require 'minitest/pride'
+require 'minitest/hell'
+require 'pry-rescue/minitest' if ENV['PRY'].present?
 
 require 'minitest/autorun'
 
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(adapter: 'postgresql',
-  encoding: 'unicode', database: 'collate_test', username: 'postgres')
 
 load File.dirname(__FILE__) + '/schema.rb'
-require File.dirname(__FILE__) + '/models.rb'
 
 load File.dirname(__FILE__) + '/seeds.rb'
