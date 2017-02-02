@@ -1,0 +1,15 @@
+dependencies:
+  override:
+    - rvm --default use ruby-2.3.3
+    - gem install bundler
+    - bundle
+  cache_directories:
+    - "/opt/circleci/.rvm/gems/ruby-2.3.3"
+
+database:
+  override:
+    - psql -c 'create database collate_test;' -U postgres
+
+test:
+  override:
+    - RAILS_ENV=test bundle exec rake test
