@@ -38,4 +38,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "pry-rescue", "~> 1.4", ">= 1.4.2"
   spec.add_development_dependency "simplecov", "~> 0.12.0"
   spec.add_development_dependency "httparty", "~> 0.12.0"
+  spec.add_development_dependency "coveralls", "~> 0.8.15"
 end

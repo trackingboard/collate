@@ -6,9 +6,11 @@ if ENV['CIRCLE_ARTIFACTS']
 end
 
 require 'shield'
+require 'coveralls'
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::ShieldFormatter
+  SimpleCov::Formatter::ShieldFormatter,
+  Coveralls::SimpleCov::Formatter
 ]
 
 SimpleCov.start 'rails'
