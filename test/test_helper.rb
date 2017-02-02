@@ -5,11 +5,9 @@ if ENV['CIRCLE_ARTIFACTS']
   SimpleCov.coverage_dir(dir)
 end
 
-require 'shield'
 require 'coveralls'
 SimpleCov.formatters = [
   SimpleCov::Formatter::HTMLFormatter,
-  SimpleCov::Formatter::ShieldFormatter,
   Coveralls::SimpleCov::Formatter
 ]
 

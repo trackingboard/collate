@@ -2,6 +2,7 @@
 
 Tests: [![CircleCI](https://circleci.com/gh/trackingboard/collate.svg?style=svg)](https://circleci.com/gh/trackingboard/collate)
 
+Coverage: [![Coverage Status](https://coveralls.io/repos/github/trackingboard/collate/badge.svg)](https://coveralls.io/github/trackingboard/collate)
 
 ## Contributing
 
