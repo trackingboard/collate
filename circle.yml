@@ -13,3 +13,9 @@ database:
 test:
   override:
     - RAILS_ENV=test bundle exec rake test
+
+deployment:
+  release:
+    tag: /^([0-9]+\.{0,1}){1,3}(\-([a-z0-9]+\.{0,1})+){0,1}(\+(build\.{0,1}){0,1}([a-z0-9]+\.{0,1}){0,}){0,1}$/
+    commands:
+      - gem build collate.gemspec
