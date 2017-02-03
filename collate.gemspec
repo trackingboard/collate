@@ -6,8 +6,8 @@ require 'collate/version'
 Gem::Specification.new do |spec|
   spec.name          = "collate"
   spec.version       = Collate::VERSION
-  spec.authors       = ["Nicholas Page"]
-  spec.email         = ["npage85@gmail.com"]
+  spec.authors       = ["Nicholas Page", "Colleen McGuckin"]
+  spec.email         = ["npage85@gmail.com", "colleenmcguckin@gmail.com"]
 
   spec.summary       = %q{Write a short summary, because Rubygems requires one.}
   spec.description   = %q{Write a longer description or delete this line.}
