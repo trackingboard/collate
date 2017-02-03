@@ -13,6 +13,6 @@ class Movie < ActiveRecord::Base
     collate_on :synopsis, operator: :le, field_transformations: [[:split, ' '], [:array_length, 1]]
     collate_on :user_rating, operator: :null
     collate_on :name, operator: :pizza
-    collate_on 'genres.id'
+    collate_on 'genres.id', value_transformations: [:pizza]
   end
 end

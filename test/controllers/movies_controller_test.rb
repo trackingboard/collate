@@ -146,7 +146,19 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_in_operator
-    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies")
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", value_transformations: [:pizza])
+
+    get :index, filter.param_key => [@scifi.id]
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 2
+  end
+
+  def test_undefined_value_transformation
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", value_transformations: [:pizza])
 
     get :index, filter.param_key => [@scifi.id]
 
