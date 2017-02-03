@@ -2,8 +2,8 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/trackingboard/collate.svg)](https://circleci.com/gh/trackingboard/collate)
 [![Coveralls](https://img.shields.io/coveralls/trackingboard/collate.svg)](https://coveralls.io/github/trackingboard/collate?branch=master)
-[![Gem](https://img.shields.io/gem/v/rails.svg)]()
-[![Gem](https://img.shields.io/gem/dt/rails.svg)]()
+[![Gem](https://img.shields.io/gem/v/collate.svg)]()
+[![Gem](https://img.shields.io/gem/dt/collate.svg)]()
 
 ## Contributing
 
