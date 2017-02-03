@@ -1,7 +1,7 @@
 # Collate
 
-[![CircleCI](https://circleci.com/gh/trackingboard/collate.svg?style=shield)](https://circleci.com/gh/trackingboard/collate)
-[![Coverage Status](https://coveralls.io/repos/github/trackingboard/collate/badge.svg?branch=master)](https://coveralls.io/github/trackingboard/collate?branch=master)
+[![CircleCI](http://circleci.com/gh/trackingboard/collate.svg?style=shield)](http://circleci.com/gh/trackingboard/collate)
+[![Coverage Status](http://coveralls.io/repos/github/trackingboard/collate/badge.svg?branch=master)](http://coveralls.io/github/trackingboard/collate?branch=master)
 
 ## Contributing
 
