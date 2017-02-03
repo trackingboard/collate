@@ -15,4 +15,12 @@ class ComponentTest < ActionController::TestCase
     assert_equal filter.component[:values].length, 2
   end
 
+  def test_load_records
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", component: {load_records: true})
+
+    assert_equal filter.component[:load_record_model], 'Genre'
+    assert_equal filter.component[:load_record_field], 'id'
+    assert_equal filter.component[:load_record_route], '/genres.json'
+  end
+
 end
