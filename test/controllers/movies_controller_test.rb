@@ -190,4 +190,17 @@ class MoviesControllerTest < ActionController::TestCase
     assert_includes @movies, @bttf
     assert_equal @movies.length, 1
   end
+
+  def test_model_enum_in
+    filter = Collate::Filter.new(:mpaa_rating, base_model_table_name: "movies", component: {type: 'checkboxgroup', values: Movie::RATINGS})
+
+    get :index, filter.param_key => [Movie::RATINGS.first]
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_includes @movies, @tm
+    assert_equal @movies.length, 2
+  end
 end

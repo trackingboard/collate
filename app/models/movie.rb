@@ -1,4 +1,6 @@
 class Movie < ActiveRecord::Base
+  RATINGS = [:R, :PG13]
+
   has_and_belongs_to_many :genres
 
   collate_group :basic_information, default_open: true do
@@ -15,5 +17,6 @@ class Movie < ActiveRecord::Base
     collate_on :name, operator: :pizza
     collate_on 'genres.id', value_transformations: [:pizza]
     collate_on :director_id, component: {load_records: true, type: 'checkboxgroup'}
+    collate_on :mpaa_rating, component: {type: 'checkboxgroup', values: Movie::RATINGS}
   end
 end

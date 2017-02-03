@@ -8,6 +8,7 @@ ActiveRecord::Schema.define do
     t.text        :synopsis
     t.integer     :user_rating
     t.references  :director
+    t.string      :mpaa_rating
   end
 
   create_table :genres_movies, :force => true do |t|
