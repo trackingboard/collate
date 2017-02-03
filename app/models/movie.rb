@@ -12,5 +12,6 @@ class Movie < ActiveRecord::Base
     collate_on :user_rating, operator: :le
     collate_on :synopsis, operator: :le, field_transformations: [[:split, ' '], [:array_length, 1]]
     collate_on :user_rating, operator: :null
+    collate_on :name, operator: :pizza
   end
 end

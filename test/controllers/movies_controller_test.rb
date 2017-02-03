@@ -133,4 +133,15 @@ class MoviesControllerTest < ActionController::TestCase
     assert_includes @movies, @bttf
     assert_equal @movies.length, 1
   end
+
+  def test_undefined_operator
+    filter = Collate::Filter.new(:name, base_model_table_name: "movies", operator: :pizza)
+
+    get :index, filter.param_key => 'party'
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_equal @movies.length, Movie.count
+  end
 end
