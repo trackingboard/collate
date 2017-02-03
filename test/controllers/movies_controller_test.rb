@@ -144,4 +144,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_not_nil @movies
     assert_equal @movies.length, Movie.count
   end
+
+  def test_in_operator
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies")
+
+    get :index, filter.param_key => [@scifi.id]
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 2
+  end
 end
