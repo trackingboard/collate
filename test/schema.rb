@@ -28,9 +28,16 @@ ActiveRecord::Schema.define do
     t.string     :name
   end
 
-  create_table :actors_movies, :force => true do |t|
+  create_table :characters, :force => true do |t|
+    t.string     :name
     t.references :movie
     t.references :actor
   end
+
+
+  # create_table :actors_movies, :force => true do |t|
+    # t.references :movie
+    # t.references :actor
+  # end
 
 end

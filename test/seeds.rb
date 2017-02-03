@@ -17,7 +17,11 @@ colleen = Actor.create!(
   name: 'Colleen'
 )
 
-Movie.create!(
+shannon = Actor.create!(
+  name: 'Shannon'
+)
+
+bttf = Movie.create!(
   name: "Back to the Future",
   genre_ids: [action_genre.id, scifi_genre.id],
   good_movie: true,
@@ -27,6 +31,18 @@ Movie.create!(
   director_id: Director.first.id,
   mpaa_rating: 'R'
 )
+
+marty = Character.create!(
+  actor_id: nick.id,
+  movie_id: bttf.id,
+  name: 'Marty McFly'
+)
+doc = Character.create!(
+  actor_id: colleen.id,
+  movie_id: bttf.id,
+  name: 'Doctor Emmett Brown'
+)
+
 Movie.create!(
   name: "Twelve Monkeys",
   genre_ids: [action_genre.id, scifi_genre.id],
@@ -34,10 +50,9 @@ Movie.create!(
   release_date: Date.new(2016, 1, 31),
   synopsis: "Everyday carry jean shorts cred, yuccie messenger bag aesthetic intelligentsia.",
   user_rating: 7,
-  mpaa_rating: 'R',
-  actor_ids: [nick.id, colleen.id]
+  mpaa_rating: 'R'
 )
-Movie.create!(
+jack_reacher = Movie.create!(
   name: "Jack Reacher: Never Go Back",
   genre_ids: [action_genre.id],
   good_movie: false,
@@ -45,4 +60,10 @@ Movie.create!(
   synopsis: "XOXO disrupt bicycle rights, PBR&B thundercats tilde blog YOLO iceland gochujang kickstarter. Food truck swag green juice bicycle rights cred. Helvetica mlkshk 8-bit aesthetic readymade, ennui gochujang franzen. Before they sold out hell of messenger bag typewriter celiac, ennui cardigan ramps copper mug shabby chic pickled 8-bit artisan irony DIY",
   user_rating: 5,
   mpaa_rating: 'PG13'
+)
+
+jack = Character.create!(
+  actor_id: shannon.id,
+  movie_id: jack_reacher.id,
+  name: 'Jack'
 )

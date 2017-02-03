@@ -2,7 +2,7 @@ class Movie < ActiveRecord::Base
   RATINGS = [:R, :PG13]
 
   has_and_belongs_to_many :genres
-  has_and_belongs_to_many :actors
+  has_many :characters
 
   collate_group :basic_information, default_open: true do
     collate_on :name, field_transformations: [:downcase, :pizza]
