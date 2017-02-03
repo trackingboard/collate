@@ -9,8 +9,12 @@ Director.create!(
   name: "Steven Spielberg"
 )
 
-Actor.create!(
-  
+nick = Actor.create!(
+  name: 'Nick'
+)
+
+colleen = Actor.create!(
+  name: 'Colleen'
 )
 
 Movie.create!(
@@ -30,7 +34,8 @@ Movie.create!(
   release_date: Date.new(2016, 1, 31),
   synopsis: "Everyday carry jean shorts cred, yuccie messenger bag aesthetic intelligentsia.",
   user_rating: 7,
-  mpaa_rating: 'R'
+  mpaa_rating: 'R',
+  actor_ids: [nick.id, colleen.id]
 )
 Movie.create!(
   name: "Jack Reacher: Never Go Back",
