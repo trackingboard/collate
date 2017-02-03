@@ -6,6 +6,7 @@ class MoviesControllerTest < ActionController::TestCase
     @tm = Movie.where(name: "Twelve Monkeys").limit(1).first
     @jack_reacher = Movie.where(name: "Jack Reacher: Never Go Back").limit(1).first
     @scifi = Genre.where(name: "Science Fiction").limit(1).first
+    @scifi_hash = { id: 2, text: "Science Fiction" }
   end
 
   def test_that_we_can_get_movies_index
@@ -38,7 +39,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_get_all_scifi_movies
-    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", operator: :contains, field_transformations: [:array_agg], value_transformations: [:join])
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", operator: :contains, component: {load_records: true}, field_transformations: [:array_agg], value_transformations: [:join])
 
     get :index, filter.param_key => [@scifi.id]
 
@@ -47,6 +48,15 @@ class MoviesControllerTest < ActionController::TestCase
     assert_not_nil @movies
     assert_includes @movies, @bttf
     assert_equal @movies.length, 2
+
+    Movie.collate_filters.each do |group_key, group|
+      group[:filters].each do |f|
+        if f.param_key == filter.param_key
+          assert_includes f.component[:values], @scifi_hash
+          assert_equal f.component[:values].length, 1
+        end
+      end
+    end
   end
 
   def test_get_non_scifi_movies
