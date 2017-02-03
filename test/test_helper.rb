@@ -24,6 +24,8 @@ ENV['RAILS_ENV'] ||= 'test'
 require 'collate'
 require File.expand_path('../../config/environment', __FILE__)
 
+require 'haml'
+
 require 'rails/test_help'
 require 'minitest/pride'
 require 'minitest/hell'

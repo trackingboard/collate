@@ -10,8 +10,6 @@ ActiveRecord::Schema.define do
 
   create_table :movies, :force => true do |t|
     t.string :name
-
-    t.timestamps null: false
   end
 
 end
