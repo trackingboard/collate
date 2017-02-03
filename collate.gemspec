@@ -9,13 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Nicholas Page", "Colleen McGuckin"]
   spec.email         = ["npage85@gmail.com", "colleenmcguckin@gmail.com"]
 
-  spec.summary       = %q{Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{Write a longer description or delete this line.}
+  spec.summary       = %q{Facilitates the filtering of ActiveRecord models using simplified DSL.}
+  spec.description   = %q{Add some DSL to your model, then run a single method in your controller, and your model now accepts filtering through the parameters.}
   spec.homepage      = "https://github.com/trackingboard/collate"
   spec.license       = "MIT"
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = 'https://rubygems.org'
   else
@@ -30,13 +28,13 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.14"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rails", "~> 4.2", ">= 4.2.6"
-  spec.add_development_dependency "pg", "~> 0.18.4"
-  spec.add_development_dependency "minitest", "~> 5.0"
-  spec.add_development_dependency "pry-rescue", "~> 1.4", ">= 1.4.2"
-  spec.add_development_dependency "simplecov", "~> 0.12.0"
-  spec.add_development_dependency "coveralls", "~> 0.8.15"
-  spec.add_development_dependency "haml"
+  spec.add_development_dependency "bundler",      "~> 1.14"
+  spec.add_development_dependency "rake",         "~> 10.0"
+  spec.add_development_dependency "rails",        "~> 4.2", ">= 4.2.6"
+  spec.add_development_dependency "pg",           "~> 0.18.4"
+  spec.add_development_dependency "minitest",     "~> 5.0"
+  spec.add_development_dependency "pry-rescue",   "~> 1.4", ">= 1.4.2"
+  spec.add_development_dependency "simplecov",    "~> 0.12.0"
+  spec.add_development_dependency "coveralls",    "~> 0.8.15"
+  spec.add_development_dependency "haml",         "~> 4.0", ">= 4.0.7"
 end
