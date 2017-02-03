@@ -23,4 +23,12 @@ class ComponentTest < ActionController::TestCase
     assert_equal filter.component[:load_record_route], '/genres.json'
   end
 
+  def test_passed_values
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", component: {values: [{ id: 1, text: "Action" }, { id: 2, text: "Science Fiction" }]})
+
+    assert_includes filter.component[:values], @scifi_hash
+    assert_includes filter.component[:values], @action_hash
+
+    assert_equal filter.component[:values].length, 2
+  end
 end

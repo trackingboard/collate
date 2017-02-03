@@ -88,7 +88,7 @@ module Collate
           self.component[:values].map { |s| {id: s, text: s.titleize} }
         elsif self.component[:values].is_a?(Array) && self.component[:values].all? { |item| item.is_a? Symbol }
           self.component[:values].map { |s| {id: s, text: s.to_s.titleize} }
-        elsif self.component[:values] < ActiveRecord::Base
+        elsif self.component[:values].respond_to?(:<) && self.component[:values] < ActiveRecord::Base
           self.component[:values].table_exists? ? self.component[:values].all.map { |m| {id: m.id, text: m.name} } : []
         else
           self.component[:values]
