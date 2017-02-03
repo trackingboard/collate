@@ -86,4 +86,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_equal @movies.length, 1
   end
 
+  def test_split_field_transformation
+    filter = Collate::Filter.new(:synopsis, base_model_table_name: "movies", label: 'Keywords', operator: :contains, component: {tags: true}, field_transformations: [:downcase, [:split, ' ']], value_transformations: [:join, :downcase])
+
+    get :index, filter.param_key => ['biodiesel', 'listicle']
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 1
+  end
+
 end
