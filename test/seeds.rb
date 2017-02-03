@@ -9,6 +9,10 @@ Director.create!(
   name: "Steven Spielberg"
 )
 
+Actor.create!(
+  
+)
+
 Movie.create!(
   name: "Back to the Future",
   genre_ids: [action_genre.id, scifi_genre.id],
