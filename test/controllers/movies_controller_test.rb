@@ -98,4 +98,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_equal @movies.length, 1
   end
 
+  def test_le_operator
+    filter = Collate::Filter.new(:user_rating, base_model_table_name: "movies", operator: :le)
+
+    get :index, filter.param_key => 6
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @jack_reacher
+    assert_equal @movies.length, 1
+  end
+
 end

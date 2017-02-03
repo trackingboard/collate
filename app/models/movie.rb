@@ -9,5 +9,6 @@ class Movie < ActiveRecord::Base
     collate_on :good_movie, operator: :present?
     collate_on :release_date, operator: :ge, field_transformations: [[:date_difference, "date '2017-01-01'"], [:date_part, 'year']]
     collate_on :synopsis, label: 'Keywords', operator: :contains, component: {tags: true}, field_transformations: [:downcase, [:split, ' ']], value_transformations: [:join, :downcase]
+    collate_on :user_rating, operator: :le
   end
 end
