@@ -5,13 +5,18 @@ scifi_genre = Genre.create!(
   name: "Science Fiction"
 )
 
+Director.create!(
+  name: "Steven Spielberg"
+)
+
 Movie.create!(
   name: "Back to the Future",
   genre_ids: [action_genre.id, scifi_genre.id],
   good_movie: true,
   release_date: Date.new(2017, 1, 31),
   synopsis: "Master cleanse actually crucifix, biodiesel cred celiac VHS listicle craft beer meh. Next level hammock hot chicken, authentic tumeric tilde dreamcatcher woke vinyl master cleanse slow-carb ethical quinoa. Pop-up put a bird on it keffiyeh, umami DIY jianbing asymmetrical artisan forage lumbersexual taxidermy hella. Fingerstache pour-over meggings mumblecore bushwick small batch, meh +1 cold-pressed forage typewriter craft beer tilde air plant.",
-  user_rating: nil
+  user_rating: nil,
+  director_id: Director.first.id
 )
 Movie.create!(
   name: "Twelve Monkeys",

@@ -178,4 +178,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_includes @movies, @bttf
     assert_equal @movies.length, 2
   end
+
+  def test_default_operator_is_in_when_field_ends_in_id
+    filter = Collate::Filter.new(:director_id, base_model_table_name: "movies", component: {load_records: true, type: 'checkboxgroup'})
+
+    get :index, filter.param_key => Director.first.id
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 1
+  end
 end

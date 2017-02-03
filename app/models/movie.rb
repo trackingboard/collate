@@ -14,5 +14,6 @@ class Movie < ActiveRecord::Base
     collate_on :user_rating, operator: :null
     collate_on :name, operator: :pizza
     collate_on 'genres.id', value_transformations: [:pizza]
+    collate_on :director_id, component: {load_records: true, type: 'checkboxgroup'}
   end
 end
