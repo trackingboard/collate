@@ -25,4 +25,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_equal @movies.length, 2
   end
 
+  def test_name_eq_filter_on_movies
+    filter = Collate::Filter.new(:name, base_model_table_name: "movies")
+    get :index, filter.param_key => "Back to the Future"
+
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 1
+  end
+
 end
