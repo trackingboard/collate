@@ -11,5 +11,6 @@ class Movie < ActiveRecord::Base
     collate_on :synopsis, label: 'Keywords', operator: :contains, component: {tags: true}, field_transformations: [:downcase, [:split, ' ']], value_transformations: [:join, :downcase]
     collate_on :user_rating, operator: :le
     collate_on :synopsis, operator: :le, field_transformations: [[:split, ' '], [:array_length, 1]]
+    collate_on :user_rating, operator: :null
   end
 end
