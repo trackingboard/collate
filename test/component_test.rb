@@ -2,8 +2,8 @@ require 'test_helper'
 
 class ComponentTest < ActionController::TestCase
   setup do
-    @action_hash = {:id=>1, :text=>"Action"}
-    @scifi_hash = {:id=>2, :text=>"Science Fiction"}
+    @action_hash = { id: 1, text: "Action" }
+    @scifi_hash = { id: 2, text: "Science Fiction" }
   end
 
   def test_that_component_values_set_from_model
