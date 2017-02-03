@@ -27,7 +27,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_name_eq_filter_on_movies
-    filter = Collate::Filter.new(:name, base_model_table_name: "movies", field_transformations: [:downcase])
+    filter = Collate::Filter.new(:name, base_model_table_name: "movies", field_transformations: [:downcase, :pizza])
     get :index, filter.param_key => "back to the future"
 
     @movies = assigns(:movies)
