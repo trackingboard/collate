@@ -60,7 +60,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_get_non_scifi_movies
-    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", operator: :&, not: true, field_transformations: [:array_agg], value_transformations: [:join])
+    filter = Collate::Filter.new('select_genres.id', base_model_table_name: "movies", joins: [:genres], joins_prefix: 'select_', operator: :&, not: true, field_transformations: [:array_agg], value_transformations: [:join])
 
     get :index, filter.param_key => [@scifi.id]
 
