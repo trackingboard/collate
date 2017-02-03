@@ -4,6 +4,7 @@ class MoviesControllerTest < ActionController::TestCase
   setup do
     @bttf = Movie.where(name: "Back to the Future").first
     @jack_reacher = Movie.where(name: "Jack Reacher: Never Go Back").first
+    @scifi = Genre.where(name: "Science Fiction").first
   end
 
   def test_that_we_can_get_movies_index
@@ -28,6 +29,19 @@ class MoviesControllerTest < ActionController::TestCase
   def test_name_eq_filter_on_movies
     filter = Collate::Filter.new(:name, base_model_table_name: "movies")
     get :index, filter.param_key => "Back to the Future"
+
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_equal @movies.length, 1
+  end
+
+  def get_all_scifi_movies
+    filter = Collate::Filter.new('genres.id', operator: :contains, field_transformations: [:array_agg], value_transformations: [:join])
+
+    get :index, filter.param_key => [@scifi.id]
 
 
     @movies = assigns(:movies)
