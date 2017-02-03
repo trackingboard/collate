@@ -10,8 +10,10 @@ Movie.create!(
   genre_ids: [action_genre.id, scifi_genre.id]
 )
 Movie.create!(
-  name: "Twelve Monkeys"
+  name: "Twelve Monkeys",
+  genre_ids: [action_genre.id, scifi_genre.id]
 )
 Movie.create!(
-  name: "Jack Reacher: Never Go Back"
+  name: "Jack Reacher: Never Go Back",
+  genre_ids: [action_genre.id]
 )
