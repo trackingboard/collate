@@ -110,4 +110,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_equal @movies.length, 1
   end
 
+  def test_array_length
+    filter = Collate::Filter.new(:synopsis, base_model_table_name: "movies", operator: :le, field_transformations: [[:split, ' '], [:array_length, 1]])
+
+    get :index, filter.param_key => 11
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @tm
+    assert_equal @movies.length, 1
+  end
+
 end

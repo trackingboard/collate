@@ -18,7 +18,7 @@ Movie.create!(
   genre_ids: [action_genre.id, scifi_genre.id],
   good_movie: true,
   release_date: Date.new(2016, 1, 31),
-  synopsis: "Everyday carry jean shorts cred, yuccie messenger bag aesthetic intelligentsia kombucha 90's keffiyeh artisan brunch bitters etsy. Sartorial umami church-key knausgaard. Literally kitsch stumptown cornhole offal cray, direct trade normcore.",
+  synopsis: "Everyday carry jean shorts cred, yuccie messenger bag aesthetic intelligentsia.",
   user_rating: 7
 )
 Movie.create!(
