@@ -3,6 +3,7 @@ require 'test_helper'
 class MoviesControllerTest < ActionController::TestCase
   setup do
     @bttf = Movie.where(name: "Back to the Future").limit(1).first
+    @tm = Movie.where(name: "Twelve Monkeys").limit(1).first
     @jack_reacher = Movie.where(name: "Jack Reacher: Never Go Back").limit(1).first
     @scifi = Genre.where(name: "Science Fiction").limit(1).first
   end
@@ -58,6 +59,19 @@ class MoviesControllerTest < ActionController::TestCase
     assert_not_nil @movies
     assert_includes @movies, @jack_reacher
     assert_equal @movies.length, 1
+  end
+
+  def test_boolean_filter
+    filter = Collate::Filter.new(:good_movie, base_model_table_name: "movies", operator: :present?)
+
+    get :index, filter.param_key => true
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @bttf
+    assert_includes @movies, @tm
+    assert_equal @movies.length, 2
   end
 
 end

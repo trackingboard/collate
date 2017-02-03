@@ -6,5 +6,6 @@ class Movie < ActiveRecord::Base
     collate_on :name, operator: :ilike
     collate_on 'genres.id', operator: :contains, field_transformations: [:array_agg], value_transformations: [:join]
     collate_on 'genres.id', operator: :&, not: true, field_transformations: [:array_agg], value_transformations: [:join]
+    collate_on :good_movie, operator: :present?
   end
 end
