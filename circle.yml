@@ -20,5 +20,6 @@ deployment:
     commands:
       - gem build collate.gemspec
       - chmod +x deploy.sh
+      - chmod 0600 ~/.gem/credentials
       - sh deploy.sh
       - gem push collate-${CIRCLE_TAG}.gem
