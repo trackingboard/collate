@@ -2,9 +2,9 @@ require 'test_helper'
 
 class MoviesControllerTest < ActionController::TestCase
   setup do
-    @bttf = Movie.where(name: "Back to the Future").first
-    @jack_reacher = Movie.where(name: "Jack Reacher: Never Go Back").first
-    @scifi = Genre.where(name: "Science Fiction").first
+    @bttf = Movie.where(name: "Back to the Future").limit(1).first
+    @jack_reacher = Movie.where(name: "Jack Reacher: Never Go Back").limit(1).first
+    @scifi = Genre.where(name: "Science Fiction").limit(1).first
   end
 
   def test_that_we_can_get_movies_index
