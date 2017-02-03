@@ -4,6 +4,7 @@ ActiveRecord::Schema.define do
   create_table :movies, :force => true do |t|
     t.string    :name
     t.boolean   :good_movie
+    t.date      :release_date
   end
 
   create_table :genres_movies, :force => true do |t|

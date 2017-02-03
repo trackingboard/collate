@@ -74,4 +74,16 @@ class MoviesControllerTest < ActionController::TestCase
     assert_equal @movies.length, 2
   end
 
+  def test_date_field_transformations
+    filter = Collate::Filter.new(:release_date, base_model_table_name: "movies", operator: :ge, field_transformations: [[:date_difference, "date '2017-01-01'"], [:date_part, 'year']])
+
+    get :index, filter.param_key => 2
+
+    @movies = assigns(:movies)
+
+    assert_not_nil @movies
+    assert_includes @movies, @jack_reacher
+    assert_equal @movies.length, 1
+  end
+
 end
