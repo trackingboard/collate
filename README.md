@@ -33,6 +33,16 @@ Then you only need to use the ```collate``` method in the controller, passing th
 @people = Person.collate(params)
 ```
 
+The params key needs to match the key that the gem is expecting. You can currently find out what that key is by iterating over the ```collate_filters``` hash on the model's class, or you can create a filter that matches the definition in the model, and grab the param_key like this:
+
+```
+filter = Collate::Filter.new(:name, base_model_table_name: "people")
+
+params[filter.param_key] = 'John Doe'
+
+@people = Person.collate(params)
+```
+
 ### Operators
 
 You can currently collate using multiple types of operators. To specify an operator to collate on, you can pass in the keyword argument ```operator```, like this:
