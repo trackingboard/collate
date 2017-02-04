@@ -188,6 +188,70 @@ collate_on 'genres.id', operator: :in, component: {load_records: true}
 
 This argument is used for rendering in the views. Currently the gem does not have helper methods for the views, but when those are added, that is how you would set the various options.
 
+### The View
+
+To know the ```params``` key to use for each filter, you need to look at the filter's ```param_key``` method value. The filters are organized in a hierarchal scheme in the class variable ```collate_filters``` for the model you included the DSL on.
+
+Here is a small example of a few filters:
+
+```
+class Person < ActiveRecord::Base
+	collate_on :name, operator: :ilike
+	collate_on :birthday, operator: :le, label: 'Birthday Before'
+end
+```
+
+And here is how ```Person.collate_filters``` would look like:
+
+```
+{
+	:main=> {
+		:label=>"Main",
+		:filters=> [
+			#<Collate::Filter
+			@base_model_table_name="people",
+			@component={:type=>"string"},
+			@field="people.name",
+			@field_transformations={},
+			@grouping=nil,
+			@html_id="1people_name",
+			@joins=nil,
+			@label="Name",
+			@operator=:ilike,
+			@value_transformations={}>
+			,
+			#<Collate::Filter
+			@base_model_table_name="people",
+			@component={:type=>"string"},
+			@field="people.birthday",
+			@field_transformations={},
+			@grouping=nil,
+			@html_id="1people_name",
+			@joins=nil,
+			@label="Birthday Before",
+			@operator=:le,
+			@value_transformations={}>
+		]
+	}
+}
+```
+
+In order to use this in a view, you could have some HAML like this:
+
+```
+= form_tag '', :method => :get do
+	- Person.collate_filters.each do |group_key, group|
+		- filters = group[:filters]
+		- filters.each do |filter|
+			- case filter.component[:type]
+			- when "string"
+	  			= filter.label
+	  			%br
+	  			= text_field_tag filter.param_key, params[filter.param_key], id: "#{filter.html_id}", style:'width:100%'
+
+```
+
+This will ensure that the keys that the inputs are submitted with match the parameter key that the gem is expecting for that specific filter.
 
 ## Contributing
 
