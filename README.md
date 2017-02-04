@@ -55,7 +55,7 @@ Here are the currently available operators:
 
 ### Field Transformations
 
-Field transformations are database functions applied to a field before the operator is used to compare it with the value. Field transformations are passed in as an array of tuples, where the first element in the tuple is the symbol for the transfomation, and the second element is the first argument to the database function. 
+Field transformations are database functions applied to a field before the operator is used to compare it with the value. Field transformations are passed in as an array of tuples, where the first element in the tuple is the symbol for the transfomation, and the second element is the first argument to the database function.
 
 For example:
 
@@ -257,8 +257,11 @@ This will ensure that the keys that the inputs are submitted with match the para
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/trackingboard/collate.
 
+1. Fork.
+2. Branch.
+3. Pull Request your feature branch or fix.
+4. 🍰
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
