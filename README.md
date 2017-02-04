@@ -17,13 +17,13 @@ or with bundler in your Gemfile:
 
 This gem currently only supports PostgreSQL.
 
-To use collate in a model, include several collation definitions. The simplest example looks like this:
+To use collate in a model, include several collation definitions. The first argument is the name of the database column to use in the query. The simplest example looks like this:
 
 ```
 collate_on :name
 ```
 
-This will add a filter to the model that will grab all records where the name equals the parameter that is passed in.
+This will add a filter to the model that will grab all records where the ```name``` column equals the parameter that is passed in.
 
 ### Operators
 
@@ -179,6 +179,15 @@ This argument will tell the gem to join in the relations specified in the ```joi
 ```
 INNER JOIN genres AS select_genres ON ...
 ```
+
+#### Component
+--------------
+```
+collate_on 'genres.id', operator: :in, component: {load_records: true}
+```
+
+This argument is used for rendering in the views. Currently the gem does not have helper methods for the views, but when those are added, that is how you would set the various options.
+
 
 ## Contributing
 
