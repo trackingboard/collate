@@ -260,7 +260,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/tracki
 1. Fork.
 2. Branch.
 3. Pull Request your feature branch or fix.
-4. 🍰
+4. 🍕
 
 ## License
 
