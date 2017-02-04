@@ -55,7 +55,7 @@ Here are the currently available operators:
 
 ### Field Transformations
 
-Field transformations are database functions used on a field before the operator is used to compare it with the value. Field transformations are passed in as an array of tuples, where the first element in the tuple is the symbol for the transfomation, and the second element is the first argument to the database function. 
+Field transformations are database functions applied to a field before the operator is used to compare it with the value. Field transformations are passed in as an array of tuples, where the first element in the tuple is the symbol for the transfomation, and the second element is the first argument to the database function. 
 
 For example:
 
@@ -63,7 +63,7 @@ For example:
 collate_on :name, field_transformations: [[:split, ' ']]
 ```
 
-This would translate to this PostgreSQL:
+This would translate to this PostgreSQL query:
 
 ```
 WHERE string_to_array(name, ' ') = ?
@@ -88,7 +88,7 @@ For example:
 collate_on :name, field_transformations: [[:split, ' '], [:array_length, 1]]
 ```
 
-Translates to this PostgreSQL:
+Translates to this PostgreSQL query:
 
 ```
 WHERE array_length(string_to_array(name, ' '), 1) = ?
@@ -137,7 +137,7 @@ This argument will overwrite the default label for the filter, which is ```field
 collate_on :name, not: true
 ```
 
-This argument causes the entire query to be surrounded by a NOT(). The above, for example, translates to this PostgreSQL:
+This argument causes the entire query to be surrounded by a NOT(). The above, for example, translates to this PostgreSQL query:
 
 ```
 WHERE NOT(name = ?)
@@ -174,7 +174,7 @@ ar_rel = ar_rel.joins(:movies => [:people])
 collate_on 'select_genres.id', operator: :in, joins: [:genres], joins_prefix: 'select_'
 ```
 
-This argument will tell the gem to join in the relations specified in the ```joins``` argument, but to prefix all table names with the prefix specified. The above code would then translate to the following PostgreSQL:
+This argument will tell the gem to join in the relations specified in the ```joins``` argument, but to prefix all table names with the prefix specified. The above code would then translate to the following PostgreSQL query:
 
 ```
 INNER JOIN genres AS select_genres ON ...
