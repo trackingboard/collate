@@ -20,10 +20,18 @@ This gem currently only supports PostgreSQL.
 To use collate in a model, include several collation definitions. The first argument is the name of the database column to use in the query. The simplest example looks like this:
 
 ```
-collate_on :name
+class Person < ActiveRecord::Base
+	collate_on :name
+end
 ```
 
 This will add a filter to the model that will grab all records where the ```name``` column equals the parameter that is passed in.
+
+Then you only need to use the ```collate``` method in the controller, passing the params:
+
+```
+@people = Person.collate(params)
+```
 
 ### Operators
 
