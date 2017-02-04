@@ -119,6 +119,67 @@ Here are the available value transformations:
 | ```:downcase```    | ```value = value.downcase``` |
 | ```:string_part``` | ```value = "%#{value}%"``` |
 
+### Additional Arguments
+
+There are many other additional arguments you can initialize a filter with. Here is a list of all of them:
+
+#### Label
+--------------
+```
+collate_on :name, label: 'Character Name'
+```
+
+This argument will overwrite the default label for the filter, which is ```field.to_s.titleize```
+
+#### Not
+--------------
+```
+collate_on :name, not: true
+```
+
+This argument causes the entire query to be surrounded by a NOT(). The above, for example, translates to this PostgreSQL:
+
+```
+WHERE NOT(name = ?)
+```
+
+#### Having
+--------------
+```
+collate_on :name, having: true
+```
+
+This argument tells the gem to use ```having``` instead of ```where``` in the ActiveRecord query. The above example then becomes:
+
+```
+HAVING name = ?
+```
+
+#### Joins
+--------------
+```
+collate_on 'genres.id', operator: :in, joins: [:genres, :movies => [:people]]
+```
+
+This argument tells the gem to use the ActiveRecord ```joins``` method with the value passed in. You can pass in an array of values, and it will evaluate each one in succession. The above code would then run this before any query is evaluated:
+
+```
+ar_rel = ar_rel.joins(:genres)
+ar_rel = ar_rel.joins(:movies => [:people])
+```
+
+#### Joins_prefix
+--------------
+```
+collate_on 'select_genres.id', operator: :in, joins: [:genres], joins_prefix: 'select_'
+```
+
+This argument will tell the gem to join in the relations specified in the ```joins``` argument, but to prefix all table names with the prefix specified. The above code would then translate to the following PostgreSQL:
+
+```
+INNER JOIN genres AS select_genres ON ...
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/trackingboard/collate.
