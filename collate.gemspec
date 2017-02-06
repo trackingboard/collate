@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   end
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features|app|coverage|config|log)/})
+    f.match(%r{^(test|spec|features|app/controllers|app/models|app/views/actors|app/views/movies|coverage|config|log)/})
   end
   spec.bindir        = "exe"
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
