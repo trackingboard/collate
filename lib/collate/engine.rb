@@ -15,6 +15,8 @@ module Collate
       extend Collate::ActiveRecordExtension
     end
 
-    ActionController::Base.prepend_view_path File.dirname(__FILE__) + "/../app/views"
+    if defined? ActionController::Base
+      ActionController::Base.prepend_view_path File.dirname(__FILE__) + "/../app/views"
+    end
   end
 end
