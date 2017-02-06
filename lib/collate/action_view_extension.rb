@@ -9,10 +9,7 @@ module Collate
     end
 
     def filter_for filter
-      case filter.component[:type]
-      when 'checkbox'
-        render :partial => "collate/checkbox_field", locals: {filter: filter}
-      end
+      render :partial => "collate/#{filter.component[:type]}_field", locals: {filter: filter}
     end
   end
 end

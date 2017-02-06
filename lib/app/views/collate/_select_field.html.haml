@@ -1,0 +1,5 @@
+= filter.label
+%br
+- select_params = [{style: 'width:100%', id: "#{filter.html_id}"}]
+- select_params[0].merge!({multiple: "multiple"}) if filter.component[:multiple]
+= select_tag "#{filter.param_key}[]", options_for_select(filter.component[:values].map { |o| params[filter.param_key].to_a.include?(o[:id].to_s) ? [o[:text], o[:id], selected: "selected"] : [o[:text], o[:id]] } ), *select_params

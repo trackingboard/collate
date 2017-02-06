@@ -1,0 +1,8 @@
+= filter.label
+%br
+- filter.component[:values].each do |value|
+  %label.custom-control.custom-checkbox
+    = check_box_tag "#{filter.param_key}[]", value[:id], ([] + params[filter.param_key].to_a).include?(value[:id]), class: 'custom-control-input'
+    %span.custom-control-indicator
+    %span.custom-control-description
+      = value[:text]

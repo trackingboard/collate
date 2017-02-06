@@ -1,2 +1,5 @@
-= check_box_tag filter.param_key, nil, params[filter.param_key]
-= label_tag filter.param_key, filter.label
+%label.custom-control.custom-checkbox
+  = check_box_tag filter.param_key, nil, params[filter.param_key], id: "#{filter.html_id}", class: 'custom-control-input'
+  %span.custom-control-indicator
+  %span.custom-control-description
+    = filter.label
