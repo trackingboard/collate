@@ -1,10 +1,15 @@
 require_relative 'active_record_extension'
+require_relative 'action_view_extension'
 require 'rails'
 
 module Collate
   class Engine < ::Rails::Engine
 
     isolate_namespace Collate
+
+    ActiveSupport.on_load :action_view do
+      include Collate::ActionViewExtension
+    end
 
     ActiveSupport.on_load :active_record do
       extend Collate::ActiveRecordExtension
