@@ -48,6 +48,12 @@ module Collate
         end
       end
 
+      default_sort = self.collate_sorters.select { |s| s.default }.first
+      if default_sort.present?
+        ar_rel = apply_sorter ar_rel, default_sort, "#{default_sort.field} #{default_sort.default.upcase}", 'order'
+        params[:order] = "#{default_sort.field} #{default_sort.default.upcase}"
+      end
+
       ar_rel
     end
 
@@ -65,7 +71,7 @@ module Collate
       self.group_options ||= {}
     end
 
-    def apply_sorter ar_rel, sorter, param_value
+    def apply_sorter ar_rel, sorter, param_value, sorting_method = 'reorder'
       if sorter.joins
         sorter.joins.each do |join|
           ar_rel = ar_rel.joins(join)
@@ -79,11 +85,11 @@ module Collate
       ar_rel = ar_rel.select(sorter.field_select)
 
       ar_rel = if sorter.nulls_first
-        ar_rel.reorder("#{param_value} NULLS FIRST")
+        ar_rel.send(sorting_method, "#{param_value} NULLS FIRST")
       elsif sorter.nulls_last
-        ar_rel.reorder("#{param_value} NULLS LAST")
+        ar_rel.send(sorting_method, "#{param_value} NULLS LAST")
       else
-        ar_rel.reorder(param_value)
+        ar_rel.send(sorting_method, param_value)
       end
     end
 
