@@ -4,11 +4,11 @@ module Collate
 
     FIELD_TRANSFORMATIONS = [:date_difference, :date_part, :array_agg, :downcase, :split, :array_length]
     AGGREGATE_TRANSFORMATIONS = [:array_agg]
-    VALUE_TRANSFORMATIONS = [:join, :downcase, :string_part]
+    VALUE_TRANSFORMATIONS = [:join, :downcase, :string_part, :to_json]
 
     attr_accessor :field, :operator, :base_model_table_name, :field_transformations, :label,
                   :component, :joins, :value_transformations, :grouping, :html_id, :having,
-                  :joins_prefix, :not
+                  :joins_prefix, :not, :or
 
     def initialize(field, opt={})
       opt.each do |field, value|

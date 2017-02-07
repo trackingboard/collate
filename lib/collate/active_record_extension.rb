@@ -47,7 +47,9 @@ module Collate
       self.group_options ||= {}
     end
 
-    def apply_filter ar_rel, filter, filter_value
+    def apply_filter ar_rel, filter, param_value
+      filter_value = param_value.dup
+
       if filter.joins
         filter.joins.each do |join|
           ar_rel = if filter.joins_prefix
@@ -125,16 +127,26 @@ module Collate
         transformation = vt
         transformation = vt[0] if !transformation.is_a? Symbol
 
-        filter_value = case transformation
-        when :join
-          "{#{filter_value.join(', ')}}"
-        when :downcase
-          filter_value.downcase
-        when :string_part
-          "%#{filter_value}%"
-        else
-          filter_value
+        filter_value = [filter_value] unless filter.or
+
+        filter_value.each_with_index do |f, i|
+          filter_value[i] = case transformation
+          when :join
+            "#{f.join(vt[1])}"
+          when :as_array
+            "{#{f}}"
+          when :downcase
+            f.downcase
+          when :string_part
+            "%#{f}%"
+          when :to_json
+            "{\"#{vt[1]}\": \"#{f}\"}"
+          else
+            f
+          end
         end
+        filter_value = filter_value[0] unless filter.or
+
       end
 
       ar_method = filter.having ? "having" : "where"
@@ -162,10 +174,15 @@ module Collate
         ""
       end
 
+      query_string = filter_value.length.times.collect{query_string}.join(' OR ') if filter.or
       query_string = "NOT(#{query_string})" if filter.not
 
       ar_rel = if query_string.include?('?')
-        ar_rel.send(ar_method, query_string, filter_value)
+        if filter.or
+          ar_rel.send(ar_method, query_string, *filter_value)
+        else
+          ar_rel.send(ar_method, query_string, filter_value)
+        end
       else
         ar_rel.send(ar_method, query_string)
       end
