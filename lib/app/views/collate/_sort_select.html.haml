@@ -1,4 +1,7 @@
 %select.select-2{opts}
+  - if opts[:allow_none]
+    %option{value: "", selected: (params[:order].to_s == "")}
+      None
   - sorters.each do |sorter|
     %option{value: "#{sorter.field} ASC", selected: (params[:order] == "#{sorter.field} ASC")}
       = sorter.asc_label
