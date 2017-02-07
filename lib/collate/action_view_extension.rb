@@ -10,6 +10,12 @@ module Collate
       filters
     end
 
+    def sorting_for record
+      sorters = record.model.collate_sorters ||= []
+
+      render :partial => "collate/sort_select", locals: {sorters: sorters}
+    end
+
     def filter_for filter
       render :partial => "collate/#{filter.component[:type]}_field", locals: {filter: filter}
     end
