@@ -10,17 +10,20 @@ Director.create!(
 )
 
 nick = Actor.create!(
-  name:         'Nick',
-  popularity:   90
+  name:             'Nick',
+  popularity:       90,
+  personal_data:    '{"address": "1234 Boogie Boogie Ln.", "ss_num": "123-456-7890"}'
 )
 
 colleen = Actor.create!(
-  name:         'Colleen',
-  popularity:   91
+  name:             'Colleen',
+  popularity:       91,
+  personal_data:    '{"address": "1234 Boogie Boogie Ln.", "ss_num": "102-938-4756"}'
 )
 
 shannon = Actor.create!(
-  name: 'Shannon'
+  name:             'Shannon',
+  personal_data:    '{"address": "1234 Boogie Boogie Ln.", "ss_num": "098-765-4321"}'
 )
 
 bttf = Movie.create!(

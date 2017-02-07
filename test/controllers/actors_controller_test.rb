@@ -48,4 +48,19 @@ class ActorsControllerTest < ActionController::TestCase
     assert_equal @actors.length, 3
   end
 
+  def test_actor_ssn_filter
+    filter = Collate::Filter.new(:personal_data, base_model_table_name: "actors", operator: :contains, or: true, value_transformations: [[:to_json, 'ss_num']])
+
+    get :index, filter.param_key => ["098-765-4321", "102-938-4756"]
+
+    @actors = assigns(:actors)
+
+    assert_not_nil @actors
+
+    assert_includes @actors, @shannon
+    assert_includes @actors, @colleen
+
+    assert_equal @actors.length, 2
+  end
+
 end
