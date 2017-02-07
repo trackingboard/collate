@@ -2,8 +2,8 @@
 
 [![CircleCI](https://img.shields.io/circleci/project/github/trackingboard/collate.svg)](https://circleci.com/gh/trackingboard/collate)
 [![Coveralls](https://img.shields.io/coveralls/trackingboard/collate.svg)](https://coveralls.io/github/trackingboard/collate?branch=master)
-[![Gem](https://img.shields.io/gem/v/collate.svg)]()
-[![Gem](https://img.shields.io/gem/dt/collate.svg)]()
+[![Gem](https://img.shields.io/gem/v/collate.svg)](https://rubygems.org/gems/collate)
+[![Gem](https://img.shields.io/gem/dt/collate.svg)](https://rubygems.org/gems/collate)
 
 ## Installation
 
@@ -13,11 +13,11 @@ or with bundler in your Gemfile:
 
 ```gem 'collate'```
 
-## Usage
+## Filter Usage
 
 This gem currently only supports PostgreSQL.
 
-To use collate in a model, include several collation definitions. The first argument is the name of the database column to use in the query. The simplest example looks like this:
+To use collate filtering in a model, include several collation definitions. The first argument is the name of the database column to use in the query. The simplest example looks like this:
 
 ```
 class Person < ActiveRecord::Base
@@ -283,6 +283,129 @@ In order to use this in a view, you could have some HAML like this:
 ```
 
 This will ensure that the keys that the inputs are submitted with match the parameter key that the gem is expecting for that specific filter.
+
+## Sorting Usage
+
+To use collate sorting for a model, include several ```collate_sort``` defintions. For example:
+
+```
+class Person < ActiveRecord::Base
+	collate_sort :name
+	collate_sort :popularity	
+end
+```
+
+Then, in the controller, use the ```collate``` method:
+
+```
+@people = Person.collate(params)
+```
+
+This will cause the people to be sorted on either ```name``` or ```popularity``` if the ```params[:order]``` value is set appropriately.
+
+```params[:order]``` must have a value of the format ```"#{table_name}.#{field_name} ASC``` or ```"#{table_name}.#{field_name} DESC```
+
+For example:
+
+```
+params[:order] = "people.name ASC"
+@people = Person.collate(params)
+```
+
+Will result in the following PostgreSQL query:
+
+```
+SELECT * FROM people ORDER BY people.name ASC
+```
+
+You can also pass parameter options to ```collate_sort``` for more complex sorting.
+
+#### Default
+--------------
+```
+collate_sort :name, default: 'asc'
+```
+
+This tells collate that this particular sorting should be performed if there is no other sorting specified by the user.
+
+It is also the second sorting to be applied on top of another sort.
+
+For instance:
+
+```
+class Person < ActiveRecord::Base
+	collate_sort :name, default: 'desc'
+	collate_sort :popularity	
+end
+```
+
+```
+params[:order] = 'people.popularity ASC'
+@people = Person.collate(params)
+```
+
+This would result in the following PostgreSQL query:
+
+```
+ORDER BY people.popularity ASC, people.name DESC
+```
+
+#### Joins
+--------------
+```
+collate_sort 'posts.created_at', joins: [:posts]
+```
+
+This will perform the ActiveRecord joins before the sorting is applied. Doing this will allow you to sort on fields that are on related models.
+
+#### Field_select
+--------------
+```
+collate_sort 'post_count', joins: [:posts], field_select: 'COUNT(posts.*) as post_count'
+```
+
+This will perform the ActiveRecord select before the sorting is applied. Doing this will allow you to sort on fields created using a subquery.
+
+#### Nulls_first
+--------------
+```
+collate_sort :popularity, nulls_first: true
+```
+
+This will append ```NULLS FIRST``` to the order portion of the database query
+
+#### Nulls_last
+--------------
+```
+collate_sort :popularity, nulls_last: true
+```
+
+This will append ```NULLS LAST``` to the order portion of the database query
+
+#### Label
+--------------
+```
+collate_sort :popularity, label: 'Popularity Score'
+```
+
+This will modify the default sorting label, which is ```field.to_s.titleize```.
+
+#### Asc_label
+--------------
+```
+collate_sort :popularity, asc_label: 'Popularity Score Lowest to Highest'
+```
+
+This will modify the default ascending sorting label, which is ```#{label} ⬇```.
+
+#### Desc_label
+--------------
+```
+collate_sort :popularity, desc_label: 'Popularity Score Highest to Lowest'
+```
+
+This will modify the default descending sorting label, which is ```#{label} ⬆```.
+
 
 ## Contributing
 
