@@ -63,4 +63,18 @@ class ActorsControllerTest < ActionController::TestCase
     assert_equal @actors.length, 2
   end
 
+  def test_actor_cool_projects_sorting
+    get :index, {order: 'actors.cool_projects DESC'}
+
+    @actors = assigns(:actors)
+
+    assert_not_nil @actors
+
+    assert_equal @actors[0], @shannon
+    assert_equal @actors[1], @nick
+    assert_equal @actors[2], @colleen
+
+    assert_equal @actors.length, 3
+  end
+
 end

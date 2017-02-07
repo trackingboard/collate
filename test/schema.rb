@@ -28,6 +28,7 @@ ActiveRecord::Schema.define do
     t.string     :name
     t.integer    :popularity
     t.jsonb      :personal_data
+    t.integer    :cool_projects
   end
 
   create_table :characters, :force => true do |t|
