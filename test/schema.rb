@@ -26,6 +26,7 @@ ActiveRecord::Schema.define do
 
   create_table :actors, :force => true do |t|
     t.string     :name
+    t.integer    :popularity
   end
 
   create_table :characters, :force => true do |t|
@@ -33,11 +34,5 @@ ActiveRecord::Schema.define do
     t.references :movie
     t.references :actor
   end
-
-
-  # create_table :actors_movies, :force => true do |t|
-    # t.references :movie
-    # t.references :actor
-  # end
 
 end

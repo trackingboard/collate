@@ -10,11 +10,13 @@ Director.create!(
 )
 
 nick = Actor.create!(
-  name: 'Nick'
+  name:         'Nick',
+  popularity:   90
 )
 
 colleen = Actor.create!(
-  name: 'Colleen'
+  name:         'Colleen',
+  popularity:   91
 )
 
 shannon = Actor.create!(
