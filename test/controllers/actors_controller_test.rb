@@ -4,6 +4,7 @@ class ActorsControllerTest < ActionController::TestCase
   setup do
     @nick = Actor.find_by(name: "Nick")
     @colleen = Actor.find_by(name: "Colleen")
+    @shannon = Actor.find_by(name: "Shannon")
   end
 
   def test_actors_have_worked_with_actors
@@ -28,7 +29,23 @@ class ActorsControllerTest < ActionController::TestCase
 
     assert_equal @actors[0], @colleen
     assert_equal @actors[1], @nick
+    assert_equal @actors[2], @shannon
 
     assert_equal @actors.length, 3
   end
+
+  def test_actor_character_order_sorting
+    get :index, {order: 'characters.order ASC'}
+
+    @actors = assigns(:actors)
+
+    assert_not_nil @actors
+
+    assert_equal @actors[0], @shannon
+    assert_equal @actors[1], @nick
+    assert_equal @actors[2], @colleen
+
+    assert_equal @actors.length, 3
+  end
+
 end

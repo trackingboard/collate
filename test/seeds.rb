@@ -37,12 +37,14 @@ bttf = Movie.create!(
 marty = Character.create!(
   actor_id: nick.id,
   movie_id: bttf.id,
-  name: 'Marty McFly'
+  name: 'Marty McFly',
+  order: 1
 )
 doc = Character.create!(
   actor_id: colleen.id,
   movie_id: bttf.id,
-  name: 'Doctor Emmett Brown'
+  name: 'Doctor Emmett Brown',
+  order: 2
 )
 
 Movie.create!(

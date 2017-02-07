@@ -33,6 +33,7 @@ ActiveRecord::Schema.define do
     t.string     :name
     t.references :movie
     t.references :actor
+    t.integer    :order
   end
 
 end
