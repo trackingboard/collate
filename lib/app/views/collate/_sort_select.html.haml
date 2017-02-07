@@ -1,5 +1,4 @@
-.strong Sort
-%select.select-2{name: 'order'}
+%select.select-2{opts}
   - sorters.each do |sorter|
     %option{value: "#{sorter.field} ASC", selected: (params[:order] == "#{sorter.field} ASC")}
       = sorter.asc_label
