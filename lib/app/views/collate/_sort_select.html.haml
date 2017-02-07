@@ -1,7 +1,7 @@
 .strong Sort
 %select.select-2{name: 'order'}
-  - @sorting_options.each do |key, sort_option|
-    %option{value: "#{sort_option[:field]} ASC", selected: (params[:order] == "#{sort_option[:field]} ASC")}
-      = sort_option[:description][:asc]
-    %option{value: "#{sort_option[:field]} DESC", selected: (params[:order] == "#{sort_option[:field]} DESC")}
-      = sort_option[:description][:desc]
+  - sorters.each do |sorter|
+    %option{value: "#{sorter.field} ASC", selected: (params[:order] == "#{sorter.field} ASC")}
+      = sorter.asc_label
+    %option{value: "#{sorter.field} DESC", selected: (params[:order] == "#{sorter.field} DESC")}
+      = sorter.desc_label
