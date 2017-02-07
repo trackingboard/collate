@@ -7,5 +7,5 @@ class Actor < ActiveRecord::Base
 
   collate_sort :popularity, nulls_last: true
   collate_sort 'characters.order', joins: [:characters], nulls_first: true
-  collate_sort :cool_projects
+  collate_sort :cool_projects, default: 'asc'
 end
