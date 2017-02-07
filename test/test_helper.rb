@@ -17,6 +17,7 @@ SimpleCov.start do
   add_filter 'config/'
   add_filter 'lib/collate.rb'
   add_filter 'lib/collate/engine.rb'
+  add_filter 'lib/collate/action_view_extension.rb'
 end
 
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
