@@ -21,6 +21,8 @@ module Collate
     end
 
     def collate params
+      initialize_collate
+
       ar_rel = self.all
 
       self.collate_filters.each do |group_key, group|

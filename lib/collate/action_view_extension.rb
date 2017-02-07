@@ -3,9 +3,11 @@ module Collate
     def filters_for_group record, group_key
       groups = record.model.collate_filters ||= {}
 
-      group = groups[group_key]
+      group = groups[group_key] ||= {}
 
       filters = group[:filters] ||= []
+
+      filters
     end
 
     def filter_for filter
