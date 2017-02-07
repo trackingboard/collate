@@ -1,7 +1,14 @@
 require_relative 'filter'
+require_relative 'sorter'
 
 module Collate
   module ActiveRecordExtension
+
+    def collate_sort field, opts={}
+      initialize_collate
+
+      self.collate_sorters << Collate::Sorter.new(field, opts.merge({base_model_table_name: self.table_name}))
+    end
 
     def collate_on field, opts={}
       initialize_collate
@@ -33,6 +40,10 @@ module Collate
         end
       end
 
+      self.collate_sorters.each do |sorter|
+
+      end
+
       ar_rel
     end
 
@@ -41,10 +52,11 @@ module Collate
     def initialize_collate
       if !self.method_defined? :collate_filters
         class << self
-          attr_accessor :collate_filters, :default_group, :group_options
+          attr_accessor :collate_filters, :collate_sorters, :default_group, :group_options
         end
       end
       self.collate_filters ||= {}
+      self.collate_sorters ||= []
       self.default_group ||= :main
       self.group_options ||= {}
     end
