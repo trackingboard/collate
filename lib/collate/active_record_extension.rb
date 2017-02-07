@@ -48,7 +48,11 @@ module Collate
     end
 
     def apply_filter ar_rel, filter, param_value
-      filter_value = param_value.dup
+      filter_value = if param_value.duplicable?
+        param_value.dup
+      else
+        param_value
+      end
 
       if filter.joins
         filter.joins.each do |join|

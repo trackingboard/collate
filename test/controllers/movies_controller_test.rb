@@ -39,7 +39,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_get_all_scifi_movies
-    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", operator: :contains, component: {load_records: true}, field_transformations: [:array_agg], value_transformations: [:join])
+    filter = Collate::Filter.new('genres.id', base_model_table_name: "movies", operator: :contains, component: {load_records: true}, field_transformations: [:array_agg], value_transformations: [[:join, ', '], :as_array])
 
     get :index, filter.param_key => [@scifi.id]
 
@@ -60,7 +60,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_get_non_scifi_movies
-    filter = Collate::Filter.new('select_genres.id', base_model_table_name: "movies", joins: [:genres], joins_prefix: 'select_', operator: :&, not: true, field_transformations: [:array_agg], value_transformations: [:join])
+    filter = Collate::Filter.new('select_genres.id', base_model_table_name: "movies", joins: [:genres], joins_prefix: 'select_', operator: :&, not: true, field_transformations: [:array_agg], value_transformations: [[:join, ', '], :as_array])
 
     get :index, filter.param_key => [@scifi.id]
 
@@ -97,7 +97,7 @@ class MoviesControllerTest < ActionController::TestCase
   end
 
   def test_split_field_transformation
-    filter = Collate::Filter.new(:synopsis, base_model_table_name: "movies", label: 'Keywords', operator: :contains, component: {tags: true}, field_transformations: [:downcase, [:split, ' ']], value_transformations: [:join, :downcase])
+    filter = Collate::Filter.new(:synopsis, base_model_table_name: "movies", label: 'Keywords', operator: :contains, component: {tags: true}, field_transformations: [:downcase, [:split, ' ']], value_transformations: [[:join, ', '], :as_array, :downcase])
 
     get :index, filter.param_key => ['biodiesel', 'listicle']
 

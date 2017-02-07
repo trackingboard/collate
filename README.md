@@ -134,6 +134,7 @@ Here are the available value transformations:
 | Transformation | Behavior |
 |:-------------------------|:--------------------|
 | ```:join```        | ```value = value.join(arg1)``` |
+| ```:as_array```    | ```value = "{#{value}}"``` |
 | ```:downcase```    | ```value = value.downcase``` |
 | ```:string_part``` | ```value = "%#{value}%"``` |
 
@@ -148,6 +149,18 @@ collate_on :name, label: 'Character Name'
 ```
 
 This argument will overwrite the default label for the filter, which is ```field.to_s.titleize```
+
+#### Or
+--------------
+```
+collate_on :name, or: true
+```
+
+This argument causes the query to use "OR" for each element of the filter value array passed in from the user. For example, if the user passed in ```["John Doe", "Jane Doe"]``` as the parameter for the above collation, this is the PostgreSQL query that would result:
+
+```
+WHERE name = "John Doe" OR name = "Jane Doe"
+```
 
 #### Not
 --------------
