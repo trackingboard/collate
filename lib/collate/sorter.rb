@@ -1,7 +1,7 @@
 module Collate
   class Sorter
     attr_accessor :field, :base_model_table_name, :label, :asc_label, :desc_label,
-                  :field_select, :joins, :default
+                  :field_select, :joins, :default, :nulls_last, :nulls_first
 
     def initialize(field, opt={})
       opt.each do |field, value|

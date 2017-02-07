@@ -41,7 +41,11 @@ module Collate
       end
 
       self.collate_sorters.each do |sorter|
+        sort_field, _, sort_direction = params[:order].to_s.partition(' ')
 
+        if(sort_field == sorter.field && ['ASC','DESC'].include?(sort_direction))
+          ar_rel = apply_sorter ar_rel, sorter, params[:order]
+        end
       end
 
       ar_rel
@@ -59,6 +63,28 @@ module Collate
       self.collate_sorters ||= []
       self.default_group ||= :main
       self.group_options ||= {}
+    end
+
+    def apply_sorter ar_rel, sorter, param_value
+      if sorter.joins
+        sorter.joins.each do |join|
+          ar_rel = ar_rel.joins(join)
+        end
+      end
+
+      ar_rel = ar_rel.select("#{ar_rel.table_name}.*")
+
+      sorter.field_select = sorter.field unless sorter.field_select
+
+      ar_rel = ar_rel.select(sorter.field_select)
+
+      ar_rel = if sorter.nulls_first
+        ar_rel.reorder("#{param_value} NULLS FIRST")
+      elsif sorter.nulls_last
+        ar_rel.reorder("#{param_value} NULLS LAST")
+      else
+        ar_rel.reorder(param_value)
+      end
     end
 
     def apply_filter ar_rel, filter, param_value

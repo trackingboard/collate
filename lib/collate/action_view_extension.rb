@@ -13,7 +13,7 @@ module Collate
     def sorting_for record, opts={}
       sorters = record.model.collate_sorters ||= []
 
-      opts[:name] ||= "sort"
+      opts[:name] ||= "order"
 
       render :partial => "collate/sort_select", locals: {sorters: sorters, opts: opts}
     end
