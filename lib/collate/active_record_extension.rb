@@ -51,7 +51,7 @@ module Collate
       default_sort = self.collate_sorters.select { |s| s.default }.first
       if default_sort.present?
         ar_rel = apply_sorter ar_rel, default_sort, "#{default_sort.field} #{default_sort.default.upcase}", 'order'
-        params[:order] = "#{default_sort.field} #{default_sort.default.upcase}"
+        params[:order] ||= "#{default_sort.field} #{default_sort.default.upcase}"
       end
 
       ar_rel
