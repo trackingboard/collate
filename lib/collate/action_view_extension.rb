@@ -10,6 +10,10 @@ module Collate
       filters
     end
 
+    def filters_for_groups record, group_keys
+      group_keys.collect { |gk| filters_for_group record, gk }.flatten
+    end
+
     def sorting_for record, opts={}
       sorters = record.model.collate_sorters ||= []
 
