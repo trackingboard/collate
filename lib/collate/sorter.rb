@@ -4,8 +4,8 @@ module Collate
                   :field_select, :joins, :default, :nulls_last, :nulls_first
 
     def initialize(field, opt={})
-      opt.each do |field, value|
-        self.send("#{field}=", value)
+      opt.each do |f, value|
+        self.send("#{f}=", value)
       end
 
       self.field = field

@@ -10,7 +10,7 @@ class ActorsControllerTest < ActionController::TestCase
   def test_actors_have_worked_with_actors
     filter = Collate::Filter.new('coworker_characters.actor_id', base_model_table_name: "actors", joins_prefix: ['worked_with_', 'coworker_'], joins: [:characters =>[:movies => [:characters]]], component: {load_records: true})
 
-    get :index, filter.param_key => [@colleen.id]
+    get :index, params: { filter.param_key => [@colleen.id] }
 
     @actors = assigns(:actors)
 
@@ -21,7 +21,7 @@ class ActorsControllerTest < ActionController::TestCase
   end
 
   def test_actor_popularity_sorting
-    get :index, {order: 'actors.popularity DESC'}
+    get :index, params: { order: 'actors.popularity DESC' }
 
     @actors = assigns(:actors)
 
@@ -35,7 +35,7 @@ class ActorsControllerTest < ActionController::TestCase
   end
 
   def test_actor_character_order_sorting
-    get :index, {order: 'characters.order ASC'}
+    get :index, params: { order: 'characters.order ASC' }
 
     @actors = assigns(:actors)
 
@@ -51,7 +51,7 @@ class ActorsControllerTest < ActionController::TestCase
   def test_actor_ssn_filter
     filter = Collate::Filter.new(:personal_data, base_model_table_name: "actors", operator: :contains, or: true, value_transformations: [[:to_json, 'ss_num']])
 
-    get :index, filter.param_key => ["098-765-4321", "102-938-4756"]
+    get :index, params: { filter.param_key => ["098-765-4321", "102-938-4756"] }
 
     @actors = assigns(:actors)
 
@@ -64,7 +64,7 @@ class ActorsControllerTest < ActionController::TestCase
   end
 
   def test_actor_cool_projects_sorting
-    get :index, {order: 'actors.cool_projects DESC'}
+    get :index, params: { order: 'actors.cool_projects DESC' }
 
     @actors = assigns(:actors)
 

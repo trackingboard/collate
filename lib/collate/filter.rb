@@ -11,8 +11,8 @@ module Collate
                   :joins_prefix, :not, :or
 
     def initialize(field, opt={})
-      opt.each do |field, value|
-        self.send("#{field}=", value)
+      opt.each do |f, value|
+        self.send("#{f}=", value)
       end
 
       self.component ||= {}
