@@ -60,15 +60,16 @@ module Collate
   private
 
     def initialize_collate
-      if !self.method_defined? :collate_filters
+      if !self.respond_to? :collate_filters
         class << self
           attr_accessor :collate_filters, :collate_sorters, :default_group, :group_options
         end
+
+        self.collate_filters ||= {}
+        self.collate_sorters ||= []
+        self.default_group ||= :main
+        self.group_options ||= {}
       end
-      self.collate_filters ||= {}
-      self.collate_sorters ||= []
-      self.default_group ||= :main
-      self.group_options ||= {}
     end
 
     def apply_sorter ar_rel, sorter, param_value, sorting_method = 'reorder'

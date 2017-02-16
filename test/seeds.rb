@@ -39,13 +39,13 @@ bttf = Movie.create!(
   mpaa_rating: 'R'
 )
 
-marty = Character.create!(
+Character.create!(
   actor_id: nick.id,
   movie_id: bttf.id,
   name: 'Marty McFly',
   order: 1
 )
-doc = Character.create!(
+Character.create!(
   actor_id: colleen.id,
   movie_id: bttf.id,
   name: 'Doctor Emmett Brown',
@@ -71,7 +71,7 @@ jack_reacher = Movie.create!(
   mpaa_rating: 'PG13'
 )
 
-jack = Character.create!(
+Character.create!(
   actor_id: shannon.id,
   movie_id: jack_reacher.id,
   name: 'Jack'
