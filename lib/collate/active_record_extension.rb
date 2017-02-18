@@ -141,7 +141,7 @@ module Collate
 
       ar_rel = ar_rel.group(filter.grouping) if filter.grouping
 
-      ar_rel = ar_rel.select(field_select) if filter.field_select
+      ar_rel = ar_rel.select(filter.field_select) if filter.field_select
 
       field_query = filter.field
 
