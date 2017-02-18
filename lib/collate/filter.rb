@@ -8,7 +8,7 @@ module Collate
 
     attr_accessor :field, :operator, :base_model_table_name, :field_transformations, :label,
                   :component, :joins, :value_transformations, :grouping, :html_id, :having,
-                  :joins_prefix, :not, :or
+                  :joins_prefix, :not, :or, :field_select
 
     def initialize(field, opt={})
       opt.each do |f, value|
