@@ -95,6 +95,30 @@ module Collate
     end
 
     def apply_filter ar_rel, filter, param_value
+      ar_rel, ar_method, query_string, filter_value = if filter.field.is_a?(Array)
+        full_query_strings = []
+        full_filter_values = []
+
+        filter.field.each do |filter_field|
+          ar_rel, ar_method, query_string, filter_value = get_filter_data ar_rel, filter_field, filter, param_value
+
+          full_query_strings << query_string
+          full_filter_values << filter_value
+        end
+
+        [ar_rel, ar_method, full_query_strings.join(' OR '), full_filter_values.flatten]
+      else
+        get_filter_data ar_rel, filter.field.dup, filter, param_value
+      end
+
+      ar_rel = if query_string.include?('?')
+        ar_rel.send(ar_method, query_string, *filter_value)
+      else
+        ar_rel.send(ar_method, query_string)
+      end
+    end
+
+    def get_filter_data ar_rel, filter_field, filter, param_value
       filter_value = if param_value.duplicable?
         param_value.dup
       else
@@ -141,9 +165,7 @@ module Collate
 
       ar_rel = ar_rel.group(filter.grouping) if filter.grouping
 
-      ar_rel = ar_rel.select(filter.field_select) if filter.field_select
-
-      field_query = filter.field
+      field_query = filter_field
 
       filter.field_transformations.each do |ft|
         transformation = ft
@@ -230,15 +252,7 @@ module Collate
       query_string = filter_value.length.times.collect{query_string}.join(' OR ') if filter.or
       query_string = "NOT(#{query_string})" if filter.not
 
-      ar_rel = if query_string.include?('?')
-        if filter.or
-          ar_rel.send(ar_method, query_string, *filter_value)
-        else
-          ar_rel.send(ar_method, query_string, filter_value)
-        end
-      else
-        ar_rel.send(ar_method, query_string)
-      end
+      [ar_rel, ar_method, query_string, filter_value]
     end
 
   end
