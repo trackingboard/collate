@@ -112,7 +112,7 @@ module Collate
         key += VALUE_TRANSFORMATIONS.index(transformation).to_s
       end
 
-      "{#{key}}#{field.to_s.gsub('[','').gsub(']','')}"
+      "{#{key}}#{field.to_s.gsub('[','').gsub(']','').gsub('"','').gsub(',','').gsub(' ','_')}"
     end
   end
 end
