@@ -112,7 +112,11 @@ module Collate
       end
 
       ar_rel = if query_string.include?('?')
-        ar_rel.send(ar_method, query_string, *filter_value)
+        if filter.or
+          ar_rel.send(ar_method, query_string, *filter_value)
+        else
+          ar_rel.send(ar_method, query_string, filter_value)
+        end
       else
         ar_rel.send(ar_method, query_string)
       end
