@@ -7,6 +7,8 @@ class Actor < ActiveRecord::Base
 
   collate_on ["actors.name", "actors.aka"], operator: :ilike, joins: [], value_transformations: [:string_part]
 
+  collate_on :name, or: true
+
   collate_sort :popularity, nulls_last: true
   collate_sort 'characters.order', joins: [:characters], nulls_first: true
   collate_sort :cool_projects, default: 'asc'
