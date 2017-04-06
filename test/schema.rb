@@ -28,7 +28,13 @@ ActiveRecord::Schema.define do
     t.string     :name
     t.string     :aka
     t.integer    :popularity
-    t.jsonb      :personal_data
+
+    if ENV["RAILS_ENV"] == 'mysql'
+      t.json     :personal_data
+    else
+      t.jsonb    :personal_data
+    end
+
     t.integer    :cool_projects
   end
 
