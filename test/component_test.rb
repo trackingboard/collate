@@ -18,7 +18,6 @@ class ComponentTest < ActionController::TestCase
   def test_load_records
     filter = Collate::Filter.new(:good_movie, base_model_table_name: "movies", component: {load_records: true})
 
-    # binding.pry
     assert_equal filter.component[:load_record_model], 'Movie'
     assert_equal filter.component[:load_record_field], 'id'
     assert_equal filter.component[:load_record_route], '/movies.json'
