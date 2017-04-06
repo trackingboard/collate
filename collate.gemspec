@@ -28,15 +28,15 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler",      "~> 1.14"
-  spec.add_development_dependency "rake",         "~> 11.2.2"           #"~> 10.0"
-  spec.add_development_dependency "rails",        "~> 5.0.1"            #"~> 4.2", ">= 4.2.6"
+  spec.add_development_dependency "bundler",                  "~> 1.14.6"
+  spec.add_development_dependency "rake",                     "~> 12.0.0"
+  spec.add_development_dependency "rails",                    "~> 5.0.2"
   spec.add_development_dependency "single_test"
   spec.add_development_dependency "rails-controller-testing"
-  spec.add_development_dependency "pg",           "~> 0.18.4"
-  spec.add_development_dependency "minitest",     "~> 5.0"
-  spec.add_development_dependency "pry-rescue",   "~> 1.4", ">= 1.4.2"
-  spec.add_development_dependency "simplecov",    "~> 0.12.0"
-  spec.add_development_dependency "coveralls",    "~> 0.8.15"
-  spec.add_development_dependency "haml",         "~> 4.0", ">= 4.0.7"
+  spec.add_development_dependency "pg",                       "~> 0.20.0"
+  spec.add_development_dependency "minitest",                 "~> 5.10.1"
+  spec.add_development_dependency "pry-rescue",               "~> 1.4.5"
+  spec.add_development_dependency "simplecov",                "~> 0.14.1"
+  spec.add_development_dependency "coveralls",                "~> 0.8.20"
+  spec.add_development_dependency "haml",                     "~> 4.0.7"
 end
