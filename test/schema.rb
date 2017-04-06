@@ -26,6 +26,7 @@ ActiveRecord::Schema.define do
 
   create_table :actors, :force => true do |t|
     t.string     :name
+    t.string     :aka
     t.integer    :popularity
     t.jsonb      :personal_data
     t.integer    :cool_projects

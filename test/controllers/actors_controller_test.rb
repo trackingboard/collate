@@ -77,4 +77,19 @@ class ActorsControllerTest < ActionController::TestCase
     assert_equal @actors.length, 3
   end
 
+  def test_actor_either_or_field_filter
+    filter = Collate::Filter.new(["actors.name", "actors.aka"], base_model_table_name: "actors", operator: :ilike, joins: [], value_transformations: [:string_part])
+
+    get :index, params: { filter.param_key => "bob" }
+
+    @actors = assigns(:actors)
+
+    assert_not_nil @actors
+
+    assert_includes @actors, @nick
+    assert_includes @actors, @colleen
+
+    assert_equal @actors.length, 2
+  end
+
 end

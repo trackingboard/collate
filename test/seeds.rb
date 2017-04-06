@@ -11,6 +11,7 @@ Director.create!(
 
 nick = Actor.create!(
   name:             'Nick',
+  aka:              'Bob',
   popularity:       90,
   personal_data:    {"address": "1234 Boogie Boogie Ln.", "ss_num": "123-456-7890"},
   cool_projects:    100
@@ -18,6 +19,7 @@ nick = Actor.create!(
 
 colleen = Actor.create!(
   name:             'Colleen',
+  aka:              'Bobby',
   popularity:       91,
   personal_data:    {"address": "1234 Boogie Boogie Ln.", "ss_num": "102-938-4756"},
   cool_projects:    50
@@ -25,6 +27,7 @@ colleen = Actor.create!(
 
 shannon = Actor.create!(
   name:             'Shannon',
+  aka:              'Rob',
   personal_data:    {"address": "1234 Boogie Boogie Ln.", "ss_num": "098-765-4321"}
 )
 

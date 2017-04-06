@@ -5,6 +5,8 @@ class Actor < ActiveRecord::Base
 
   collate_on :personal_data, operator: :contains, or: true, value_transformations: [[:to_json, 'ss_num']]
 
+  collate_on ["actors.name", "actors.aka"], operator: :ilike, joins: [], value_transformations: [:string_part]
+
   collate_sort :popularity, nulls_last: true
   collate_sort 'characters.order', joins: [:characters], nulls_first: true
   collate_sort :cool_projects, default: 'asc'
