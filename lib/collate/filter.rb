@@ -58,6 +58,7 @@ module Collate
         self.component[:load_record_model] ||= model_name.titleize
         self.component[:load_record_field] ||= "id"
         self.component[:load_record_route] ||= "/#{model_name.pluralize}.json"
+        self.component[:load_record_text_method] ||= "name"
       end
 
       self.joins ||= if table_name != base_model_table_name

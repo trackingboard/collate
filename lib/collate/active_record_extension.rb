@@ -195,7 +195,7 @@ module Collate
       if filter.component[:load_records]
         results = filter.component[:load_record_model].constantize.where("#{filter.component[:load_record_field]} IN (?)", filter_value)
 
-        filter.component[:values] = results.map{ |r| {id: r.id, text: r.name} }
+        filter.component[:values] = results.map{ |r| {id: r.id, text: r.public_send(filter.component[:load_record_text_method])} }
       end
 
       if filter.component[:tags]
