@@ -1,6 +1,6 @@
 module Collate
   class Filter
-    OPERATORS = [:eq, :ilike, :in, :le, :ge, :null, :contains, :present?, :&]
+    OPERATORS = [:eq, :ilike, :in, :le, :ge, :null, :contains, :present?, :&, :like]
 
     FIELD_TRANSFORMATIONS = [:date_difference, :date_part, :array_agg, :downcase, :split, :array_length]
     AGGREGATE_TRANSFORMATIONS = [:array_agg]
@@ -27,8 +27,8 @@ module Collate
         :eq
       end
       self.field = "#{base_model_table_name}.#{field}" if field.is_a? Symbol
-      self.field_transformations ||= {}
-      self.value_transformations ||= {}
+      self.field_transformations ||= []
+      self.value_transformations ||= []
 
       self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_')
 
@@ -96,6 +96,16 @@ module Collate
         end
       elsif component[:tags]
         self.component[:values] = []
+      end
+
+      ## MySQL support
+      if Collate::database_type == :mysql2
+        # Translate all ILIKE operators to LIKE operators while downcasing values
+        if self.operator == :ilike
+          self.operator = :like
+          self.field_transformations << [:downcase]
+          self.value_transformations << [:downcase]
+        end
       end
     end
 
