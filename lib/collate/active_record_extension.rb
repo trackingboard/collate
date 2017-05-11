@@ -13,9 +13,17 @@ module Collate
     def collate_on field, opts={}
       initialize_collate
 
-      self.collate_filters[self.default_group] ||= {filters: []}.merge(self.group_options)
+      new_filter = Collate::Filter.new(field, opts.merge({base_model_table_name: self.table_name}))
 
-      self.collate_filters[self.default_group][:filters] << Collate::Filter.new(field, opts.merge({base_model_table_name: self.table_name}))
+      self.collate_filters[self.default_group] ||= {filters: []}.merge(self.group_options)
+      self.collate_filters[self.default_group][:filters] << new_filter
+
+      if self.default_field_group
+        self.collate_field_groups[self.default_group] ||= {filter_groups: {}}.merge(self.group_options)
+
+        self.collate_field_groups[self.default_group][:filter_groups][self.default_field_group] ||= {filters: {}}.merge(self.field_group_options)
+        self.collate_field_groups[self.default_group][:filter_groups][self.default_field_group][:filters][new_filter.field_group_type] = new_filter
+      end
     end
 
     def collate_group name, **opts, &blk
@@ -25,6 +33,18 @@ module Collate
       self.group_options = opts
       self.default_group = name
       blk.call
+    end
+
+    def collate_filter_group group_name, **opts, &blk
+      initialize_collate
+
+      opts[:label] ||= group_name.to_s.titleize
+      self.field_group_options = opts
+      self.default_field_group = group_name
+
+      blk.call
+
+      self.default_field_group = nil
     end
 
     def collate params
@@ -62,13 +82,16 @@ module Collate
     def initialize_collate
       if !self.respond_to? :collate_filters
         class << self
-          attr_accessor :collate_filters, :collate_sorters, :default_group, :group_options
+          attr_accessor :collate_filters, :collate_sorters, :default_group,
+                        :group_options, :default_field_group, :collate_field_groups,
+                        :field_group_options
         end
 
         self.collate_filters ||= {}
         self.collate_sorters ||= []
         self.default_group ||= :main
         self.group_options ||= {}
+        self.collate_field_groups ||= {}
       end
     end
 
