@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rails-controller-testing"
   spec.add_development_dependency "mysql2",                   "~> 0.4.5"
   spec.add_development_dependency "pg",                       "~> 0.20.0"
-  spec.add_development_dependency "minitest",                 "~> 5.10.1"
+  spec.add_development_dependency "minitest",                 "~> 5.10.1", "< 5.10.2"
   spec.add_development_dependency "pry-rescue",               "~> 1.4.5"
   spec.add_development_dependency "simplecov",                "~> 0.14.1"
   spec.add_development_dependency "coveralls",                "~> 0.8.20"
