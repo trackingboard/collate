@@ -8,7 +8,7 @@ module Collate
 
     attr_accessor :field, :operator, :base_model_table_name, :field_transformations, :label,
                   :component, :joins, :value_transformations, :grouping, :html_id, :having,
-                  :joins_prefix, :not, :or, :field_group_type
+                  :joins_prefix, :not, :or, :field_group_type, :param_key
 
     def initialize(field, opt={})
       opt.each do |f, value|
@@ -29,6 +29,8 @@ module Collate
       self.field = "#{base_model_table_name}.#{field}" if field.is_a? Symbol
       self.field_transformations ||= []
       self.value_transformations ||= []
+
+      self.param_key ||= generate_param_key
 
       self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_')
 
@@ -107,9 +109,11 @@ module Collate
           self.value_transformations << [:downcase]
         end
       end
+
+
     end
 
-    def param_key
+    def generate_param_key
       key = ""
       field_transformations.each do |ft|
         transformation = ft
