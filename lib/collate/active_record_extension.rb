@@ -240,7 +240,11 @@ module Collate
           when :downcase
             f.downcase
           when :string_part
-            "%#{f}%"
+            if vt.is_a? Symbol
+              "%#{f}%"
+            else
+              sprintf vt[1], f
+            end
           when :to_json
             "{\"#{vt[1]}\": \"#{f}\"}"
           else

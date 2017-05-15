@@ -30,10 +30,6 @@ module Collate
       self.field_transformations ||= []
       self.value_transformations ||= []
 
-      self.param_key ||= generate_param_key
-
-      self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_')
-
       field_parts = self.field.to_s.partition('.')
       table_name = field_parts[0]
       field_selector = field_parts[2]
@@ -110,21 +106,24 @@ module Collate
         end
       end
 
+      self.param_key ||= generate_param_key
 
+      self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_')
     end
 
     def generate_param_key
       key = ""
-      field_transformations.each do |ft|
+      self.field_transformations.each do |ft|
         transformation = ft
         transformation = ft[0] if !transformation.is_a? Symbol
         key += FIELD_TRANSFORMATIONS.index(transformation).to_s
       end
       key += OPERATORS.index(operator).to_s
-      value_transformations.each do |vt|
+      self.value_transformations.each do |vt|
         transformation = vt
         transformation = vt[0] if !transformation.is_a? Symbol
         key += VALUE_TRANSFORMATIONS.index(transformation).to_s
+        key += vt[1] if !vt.is_a? Symbol
       end
 
       "{#{key}}#{field.to_s.gsub('[','').gsub(']','').gsub('"','').gsub(',','').gsub(' ','_')}"
