@@ -108,7 +108,7 @@ module Collate
 
       self.param_key ||= generate_param_key
 
-      self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_')
+      self.html_id ||= param_key.gsub('{','').gsub('}','').gsub('.','_').gsub(',','_')
     end
 
     def generate_param_key
